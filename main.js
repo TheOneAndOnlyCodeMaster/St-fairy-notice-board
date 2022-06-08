@@ -1,3 +1,10 @@
+noseX=0;
+noseY=0;
+leftWristX=0;
+leftWristY=0;
+rightWristX=0;
+rightWristY=0;
+difference=0;
 function preload(){
 
 }
@@ -11,7 +18,11 @@ function setup(){
     poseNet.on('pose', gotPoses);
 }
 function draw(){
-    background('#F12234');
+    background('darkred');
+    textSize(difference);
+    fill(107, 100, 10);
+    text('Maanas Kudrimoti', noseX, noseY);
+
 }
 function modelLoaded(){
     console.log("model is loaded");
@@ -19,5 +30,13 @@ function modelLoaded(){
 function gotPoses(results){
 if(results.length > 0){
     console.log(results);
-}
-}
+    noseX=results[0].pose.nose.x;
+    noseY=results[0].pose.nose.y;
+    console.log("noseX = "+noseX + " noseY = "+ noseY);
+    leftWristX=results[0].pose.leftWrist.x;
+    rightWristX=results[0].pose.rightWrist.x;
+    leftWristY=results[0].pose.leftWrist.y;
+    rightWristY=results[0].pose.rightWrist.y;
+    difference = floor(leftWristX - rightWristX);
+    console.log("left wrist x = "+ leftWristX + " right wrist x = "+rightWristX);
+}}
